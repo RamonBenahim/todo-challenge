@@ -107,11 +107,7 @@ tasks.named("dockerfileNative") {
 
 
 
-// https://docs.gradle.org/current/userguide/upgrading_major_version_9.html#test_task_fails_when_no_tests_are_discovered
-tasks.withType(AbstractTestTask).configureEach {
-    failOnNoDiscoveredTests = false
-}
-
+// Removed failOnNoDiscoveredTests as it is only available in Gradle 9.0
 
 
 
