@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import './index.css';
 
 interface Task {
@@ -14,6 +15,7 @@ const API_URL = 'http://localhost:8080/api/tasks';
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     fetchTasks();
@@ -26,6 +28,7 @@ function App() {
       setTasks(data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
+      toast.error('Erro ao buscar tarefas.');
     }
   };
 
@@ -33,6 +36,7 @@ function App() {
     e.preventDefault();
     if (!newTaskTitle.trim()) return;
 
+    setIsSubmitting(true);
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
@@ -48,9 +52,15 @@ function App() {
       if (response.ok) {
         setNewTaskTitle('');
         fetchTasks();
+        toast.success('Tarefa adicionada com sucesso!');
+      } else {
+        toast.error('Erro ao adicionar tarefa.');
       }
     } catch (error) {
       console.error('Error adding task:', error);
+      toast.error('Erro de conexão ao adicionar.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -70,9 +80,13 @@ function App() {
 
       if (response.ok) {
         fetchTasks();
+        toast.success('Tarefa concluída! 🎉');
+      } else {
+        toast.error('Erro ao concluir tarefa.');
       }
     } catch (error) {
       console.error('Error completing task:', error);
+      toast.error('Erro de conexão ao concluir.');
     }
   };
 
@@ -84,25 +98,38 @@ function App() {
 
       if (response.ok) {
         fetchTasks();
+        toast.success('Tarefa removida!');
+      } else {
+        toast.error('Erro ao deletar tarefa.');
       }
     } catch (error) {
       console.error('Error deleting task:', error);
+      toast.error('Erro de conexão ao deletar.');
     }
   };
 
   return (
     <div className="app-container">
+      <Toaster position="bottom-right" toastOptions={{ 
+        style: {
+          background: '#333',
+          color: '#fff',
+        }
+      }} />
       <h1>🚀 To-Do App</h1>
       
       <form className="task-form" onSubmit={handleAddTask}>
         <input
           type="text"
           className="task-input"
-          placeholder="What needs to be done?"
+          placeholder="O que precisa ser feito?"
           value={newTaskTitle}
           onChange={(e) => setNewTaskTitle(e.target.value)}
+          disabled={isSubmitting}
         />
-        <button type="submit" className="btn-add">Add Task</button>
+        <button type="submit" className="btn-add" disabled={isSubmitting}>
+          {isSubmitting ? 'Adicionando...' : 'Adicionar'}
+        </button>
       </form>
 
       <div className="task-list">
@@ -119,7 +146,7 @@ function App() {
                 <button 
                   className="btn-icon btn-complete" 
                   onClick={() => handleCompleteTask(task)}
-                  title="Mark as completed"
+                  title="Marcar como concluída"
                 >
                   ✓
                 </button>
@@ -127,7 +154,7 @@ function App() {
               <button 
                 className="btn-icon btn-delete" 
                 onClick={() => handleDeleteTask(task.id)}
-                title="Delete task"
+                title="Deletar tarefa"
               >
                 ✕
               </button>
@@ -136,7 +163,7 @@ function App() {
         ))}
         {tasks.length === 0 && (
           <div style={{ textAlign: 'center', opacity: 0.5, marginTop: '2rem' }}>
-            No tasks yet. Enjoy your day! 🌟
+            Nenhuma tarefa ainda. Aproveite o seu dia! 🌟
           </div>
         )}
       </div>
