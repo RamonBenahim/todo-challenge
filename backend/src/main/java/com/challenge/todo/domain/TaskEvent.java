@@ -1,10 +1,10 @@
 package com.challenge.todo.domain;
 
-import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
 
 import java.util.UUID;
 
-@Introspected
+@Serdeable
 public class TaskEvent {
     private UUID taskId;
     private String action; // e.g., "CREATED", "UPDATED"
