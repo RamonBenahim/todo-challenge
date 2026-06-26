@@ -1,0 +1,32 @@
+micronaut:
+  application:
+    name: todo
+  server:
+    port: 8080
+    cors:
+      enabled: true
+
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/todo_db
+    driverClassName: org.postgresql.Driver
+    username: todo_user
+    password: todo_password
+    dialect: POSTGRES
+
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: validate
+        show_sql: true
+
+flyway:
+  datasources:
+    default:
+      enabled: true
+
+kafka:
+  bootstrap:
+    servers: localhost:9092

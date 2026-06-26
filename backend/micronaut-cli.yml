@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.challenge
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle
+features: [app-name, data, data-jpa, flyway, gradle, http-client-test, java, java-application, jdbc-hikari, junit, kafka, logback, lombok, micronaut-aot, micronaut-build, micronaut-configuration-validation-gradle-plugin, micronaut-http-validation, netty-server, postgres, properties, readme, serialization-jackson, shade, static-resources, test-resources, validation]
