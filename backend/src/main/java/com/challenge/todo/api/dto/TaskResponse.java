@@ -2,12 +2,12 @@ package com.challenge.todo.api.dto;
 
 import com.challenge.todo.domain.Task;
 import com.challenge.todo.domain.TaskStatus;
-import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Introspected
+@Serdeable
 public class TaskResponse {
     private UUID id;
     private String title;

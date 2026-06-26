@@ -1,10 +1,10 @@
 package com.challenge.todo.api.dto;
 
 import com.challenge.todo.domain.TaskStatus;
-import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
 import jakarta.validation.constraints.NotBlank;
 
-@Introspected
+@Serdeable
 public class TaskRequest {
     @NotBlank
     private String title;
