@@ -15,6 +15,6 @@ public class TaskEventConsumer {
     @Topic("task-events")
     public void receive(TaskEvent event) {
         LOG.info("Received Task Event - Task ID: {}, Action: {}", event.getTaskId(), event.getAction());
-        // Here we could implement more complex logic, like sending notifications, metrics, etc.
+
     }
 }

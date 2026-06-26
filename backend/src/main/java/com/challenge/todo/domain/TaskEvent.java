@@ -7,7 +7,7 @@ import java.util.UUID;
 @Serdeable
 public class TaskEvent {
     private UUID taskId;
-    private String action; // e.g., "CREATED", "UPDATED"
+    private String action;
 
     public TaskEvent() {}
 
