@@ -107,7 +107,7 @@ tasks.named("dockerfileNative") {
 
 
 
-// Removed failOnNoDiscoveredTests as it is only available in Gradle 9.0
+
 
 
 
